@@ -34,6 +34,11 @@ class Player(object):
         player = data['playerPoolEntry']['player'] if 'playerPoolEntry' in data else data['player']
         self.injuryStatus = player.get('injuryStatus', self.injuryStatus)
         self.injured = player.get('injured', False)
+        self.percent_owned = round(player.get('ownership', {}).get('percentOwned', -1), 2)
+        self.percent_started = round(player.get('ownership', {}).get('percentStarted', -1), 2)
+        self.percent_owned_change = round(player.get('ownership', {}).get('percentChange', 0), 2)
+        self.adp = round(player.get('ownership', {}).get('averageDraftPosition', -1), 2)
+        self.auction_value = round(player.get('ownership', {}).get('auctionValueAverage', -1), 2)
 
         for split in  player.get('stats', []):
             if split['seasonId'] == year:
